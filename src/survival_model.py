@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from lifelines import KaplanMeierFitter, CoxPHFitter
+from lifelines import KaplanMeierFitter, CoxPHFitter #survival analysis
 import os
 
 def run_survival_analysis():
@@ -13,14 +13,14 @@ def run_survival_analysis():
     except FileNotFoundError:
         print(f"Run data_generator.py first.")
         return
-    # Kaplan-Meier Analysis (Visualizing Cohort Churn)
+    
+    # Kaplan-Meier Analysis (visualizing Cohort Churn)
 
-    print("Fitting Kaplan-Meier Survival Curves...")
-    kmf = KaplanMeierFitter()
+    kmf =kaplanMeierFitter()
     
     plt.figure(figsize=(10, 6))
     
-    # Plot a survival curve for each segment
+    # plot a survival curve for each segment
     for segment in df['segment'].unique():
         mask = df['segment'] == segment
         kmf.fit(df['tenure_days'][mask], event_observed=df['churned'][mask], label=segment)
@@ -32,38 +32,30 @@ def run_survival_analysis():
     plt.grid(True, alpha=0.3)
     plt.ylim(0, 1.05)
     
-    # Save the plot
     km_plot_path = os.path.join(visuals_dir, 'km_survival_curve.png')
     plt.tight_layout()
     plt.savefig(km_plot_path, dpi=300)
     plt.close()
     print(f"Kaplan-Meier plot saved to: {km_plot_path}")
 
-    # ---------------------------------------------------------
-    # 3. Cox Proportional Hazards (Feature Impact)
-    # ---------------------------------------------------------
-    print("\nFitting Cox Proportional Hazards Model...")
-    
-    # Prepare data: Cox models require categorical variables to be one-hot encoded (dummies)
+    #cox PH
+    # cox models require categorical variables to be one hot encoded (dummies)i.e. one catergory has to be dropped to become the baseline risk
     # We drop 'customer_id' and financial metrics since we are only predicting tenure based on behavior/acquisition
     cox_df = df[['segment', 'acquisition_channel', 'uses_escrow', 'tenure_days', 'churned']]
     cox_df = pd.get_dummies(cox_df, columns=['segment', 'acquisition_channel'], drop_first=True)
     
-    # Initialize and fit the model
-    cph = CoxPHFitter(penalizer=0.1) # Added a small penalizer for numerical stability
+    # fit the model
+    cph = CoxPHFitter(penalizer=0.1) #added a small penalizer for numerical stability
     cph.fit(cox_df, duration_col='tenure_days', event_col='churned')
-
-    # Print the statistical summary to the terminal
+    
     print("\n--- Cox Proportional Hazards Model Summary ---")
     cph.print_summary()
 
-    # Plot the Hazard Ratios
     plt.figure(figsize=(10, 6))
     cph.plot()
     plt.title('Impact of Features on Churn Risk (Hazard Ratios)', fontsize=14, fontweight='bold')
     plt.axvline(0, color='red', linestyle='--', alpha=0.5) # Add a baseline reference
     
-    # Save the plot
     cox_plot_path = os.path.join(visuals_dir, 'cox_hazard_ratios.png')
     plt.tight_layout()
     plt.savefig(cox_plot_path, dpi=300)

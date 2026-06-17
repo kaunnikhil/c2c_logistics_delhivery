@@ -1,0 +1,15 @@
+# Ignore datasets
+*.csv
+*.xlsx
+data/
+
+# Ignore heavy model weights and pickles
+*.pkl
+*.h5
+*.pth
+models/
+
+# Ignore virtual environments and IDE configs
+venv/
+.venv/
+.ipynb_checkpoints/
