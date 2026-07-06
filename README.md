@@ -1,85 +1,321 @@
-🚚 **C2C Logistics Strategy & Analytics Engine**
+# C2C Logistics Strategy & Analytics Engine
 
-Predicting Chaos Before It Happens (And Saving Millions Doing It)
+### From Market Entry Strategy to Predictive Decision Support
 
- Live Links
+This repository extends our solution for **The Delhivery Way**, a national case competition conducted by E-Cell IIT Kharagpur, into an end-to-end business analytics platform.
 
-- Live Executive Dashboard: [https://c2clogisticsdelhivery-lr8sixtklxjbdyzwykfa5d.streamlit.app/]
+The original challenge focused on designing a scalable strategy for Delhivery's expansion into the Consumer-to-Consumer (C2C) logistics market while preserving service quality, customer trust, and unit economics. Rather than stopping at strategic recommendations, this project translates those recommendations into quantitative models capable of simulating operational outcomes, customer behaviour, and financial impact.
 
-- GitHub Repository: [https://github.com/kaunnikhil/c2c_logistics_delhivery]
+The repository combines strategic consulting, financial modelling, machine learning, survival analysis, and interactive visualization into a single decision-support system.
 
-~ **The Problem: The "Shock Absorber" Effect**
+---
 
-B2B logistics is predictable. Consumer-to-Consumer (C2C) logistics is absolute chaos.
+## Live Demo
 
-When a massive logistics network (like Delhivery or Porter) expands into the C2C market, standard queue logic prioritizes high-paying B2B freight. When hubs hit 95%+ utilization;especially during Monsoon season, C2C parcels act as "shock absorbers" and absorb all the delay.
+**Executive Dashboard**
 
-The Business Impact? Late deliveries cause a 45% spike in the churn hazard rate. Customers leave, and Customer Lifetime Value (LTV) evaporates.
+https://c2clogisticsdelhivery-lr8sixtklxjbdyzwykfa5d.streamlit.app/
 
-~ **The Solution: An End-to-End Predictive Architecture**
+**GitHub Repository**
 
-This project isn't just a Jupyter Notebook; it's a 3 part decision engine designed to bridge Operations Research with Financial Forecasting.
+https://github.com/kaunnikhil/c2c_logistics_delhivery
 
-1. The Financial Engine (Survival Analysis) 
+---
 
-Tech: lifelines, Kaplan-Meier Fitter, Cox Proportional Hazards.
+# Business Context
 
-What it does: Mathematically models the "decay curve" of different customer segments (Homepreneurs vs. Students). Proved that subsidizing an "Escrow" feature significantly reduces the hazard rate of churn.
+Delhivery's logistics network has historically been optimized for B2B operations. Entering the C2C logistics market introduces a fundamentally different operational challenge:
 
-2. The Operational Engine (XGBoost) 
+- Highly unpredictable shipment patterns
+- Lower shipment density
+- Greater variability in pickup locations
+- Higher customer service expectations
+- Increased sensitivity to delivery delays
 
-Tech: xgboost, scikit-learn.
+As network utilization increases, C2C shipments become disproportionately affected by congestion, leading to missed SLAs, declining customer trust, and ultimately customer churn.
 
-What it does: Simulates 50,000+ shipments across 5 major transit hubs. Trains an XGBClassifier to predict SLA breaches at the exact moment of dispatch.
+This project investigates how operational decisions influence customer retention and profitability while providing executives with data-driven recommendations for managing these trade-offs.
 
-Note on Data Leakage: Aggressively prevented target leakage by blinding the model to post-dispatch variables (because cheating is for Kaggle, not production).
+---
 
-3. The Executive Command Center (Streamlit) 
+# Project Objectives
 
-Tech: streamlit, plotly.
+The analytics engine is designed to answer six core business questions:
 
-What it does: An interactive dashboard that allows C-Suite executives to play God. Adjusting the "Hub Congestion" slider instantly recalculates how many SLAs will be saved and translates that directly into recovered ₹ Rupees.
+- Which customer segments should Delhivery prioritize during market entry?
+- Which operational variables contribute most to SLA breaches?
+- How does hub congestion affect delivery performance?
+- What is the financial impact of delayed deliveries?
+- Which interventions generate the highest long-term customer value?
+- How can executives proactively prevent network bottlenecks?
 
-4.(Upcoming) The GenAI Dispatch Copilot 
+---
 
-Tech: Custom Python Agentic Workflow.
+# Repository Structure
 
-What it will do: Automate the morning routine. The AI scans the XGBoost predictions, finds the worst bottleneck (e.g., Mumbai Hub at 98% utilization), and drafts an actionable, human readable briefing for ground managers to reroute trucks before the delay happens.
+```
+.
+├── data/
+│   ├── customer_ltv_data/
+│   └── network_operations_data/
+│
+├── THE DELHIVERY WAY/
+│   ├── THE DELHIVERY WAY - Financial Model.pdf
+│   └── THE DELHIVERY WAY - Final Submission.xlsx
+│
+├── src/
+│   ├── data_generator
+│   ├── dashboard
+│   ├── survival_model
+│   ├── xgb_model
+│   ├── financial_impact_simulator
+│   └── operations_data_generator
+│
+├── visuals/
+│
+├── README.md
+└── requirements.txt
+```
 
-~ **Strategic Business Insights (The "So What?")**
+---
 
-Data without strategy is just math. Here are the core recommendations derived from this engine:
+# Project Architecture
 
-The Bottleneck Decoupling: XGBoost feature importance proved Hub Utilization outweighs distance. Recommendation: Implement Dynamic SLA Buffering during Monsoons to under-promise and over-deliver.
+```
+Delhivery Case Study
+          │
+          ▼
+ Market Research & Strategy
+          │
+          ▼
+ Financial Model
+          │
+          ▼
+ Synthetic Operations Data
+          │
+          ▼
+ Predictive ML Models
+          │
+          ▼
+ Executive Dashboard
+          │
+          ▼
+ Strategic Recommendations
+```
 
-Defending LTV:CAC: Cox Proportional Hazards proved Escrow users stay longer. Recommendation: Subsidize the first Escrow transaction for Homepreneurs. Absorbing a ₹50 fee is mathematically justified to secure thousands in protected LTV.
+---
 
-The "Delhivery Wale Bhaiya" Strategy: Introduce a 'Premium C2C' routing tier that explicitly bypasses standard logic at hubs >95% utilized, protecting brand trust and capturing price-insensitive demographics.
+# Components
 
-~ How to Run Locally 
+## 1. Strategy Consulting
 
-1. Clone the chaos:
+The repository includes the complete consulting solution prepared during the competition covering:
 
-git clone [https://github.com/kaunnikhil/c2c_logistics_delhivery.git](https://github.com/kaunnikhil/c2c_logistics_delhivery.git)
+- Market sizing
+- Competitive benchmarking
+- Customer segmentation (FPDR Framework)
+- Go-to-market strategy
+- Service differentiation
+- Consumer journey design
+- Strategic partnerships
+- Marketing strategy
+- National rollout roadmap
+
+These recommendations serve as the business foundation for the analytics models developed in this repository.
+
+---
+
+## 2. Financial Model
+
+A detailed financial model was developed to validate the commercial feasibility of the proposed strategy.
+
+The model evaluates:
+
+- Customer acquisition economics
+- Unit economics
+- Contribution margins
+- Customer Lifetime Value (LTV)
+- Cost assumptions
+- Operational profitability
+- Business scalability under different growth scenarios
+
+Instead of treating analytics independently, the predictive models are evaluated against measurable business outcomes.
+
+---
+
+## 3. Customer Retention Engine
+
+**Technology**
+
+- lifelines
+- Kaplan-Meier Survival Analysis
+- Cox Proportional Hazards Model
+
+The survival analysis estimates how customer retention changes across different customer segments and operational experiences.
+
+Rather than measuring only immediate churn, it quantifies long-term customer value and evaluates the effectiveness of strategic interventions on customer lifetime.
+
+---
+
+## 4. Operational Risk Engine
+
+**Technology**
+
+- Python
+- XGBoost
+- scikit-learn
+
+A synthetic logistics network consisting of 50,000+ shipments across multiple hubs was created to simulate C2C operations.
+
+The classification model predicts potential SLA breaches before dispatch using only operational variables available at shipment creation.
+
+Special attention was given to preventing target leakage by excluding all post-dispatch information during model training.
+
+---
+
+## 5. Executive Command Center
+
+**Technology**
+
+- Streamlit
+
+An interactive dashboard enables business users to evaluate operational scenarios in real time.
+
+---
+
+## 6. Upcoming Module — AI Operations Copilot
+
+An agentic workflow is currently under development to automate operational decision support.
+
+The planned system will:
+
+- Analyze predicted SLA breaches
+- Identify high-risk logistics hubs
+- Prioritize operational interventions
+- Generate executive briefings
+- Recommend proactive rerouting strategies
+
+---
+
+# Key Business Insights
+
+The analytics pipeline produced several actionable recommendations.
+
+### Dynamic SLA Buffering
+
+Hub utilization contributes more to delivery delays than shipment distance.
+
+Introducing dynamic SLA commitments during periods of high congestion can improve customer experience while reducing operational pressure.
+
+---
+
+### Customer Retention Strategy
+
+Survival analysis indicates that customer trust mechanisms significantly improve long-term retention.
+
+Investment in trust-building features produces stronger long-term returns than purely acquisition-focused incentives.
+
+---
+
+### Operational Prioritization
+
+Not every shipment contributes equally to future profitability.
+
+Prioritizing high-value customer segments during periods of constrained network capacity maximizes long-term business value.
+
+---
+
+# Technology Stack
+
+**Programming**
+
+- Python
+
+**Machine Learning**
+
+- XGBoost
+- scikit-learn
+
+**Statistical Modeling**
+
+- lifelines
+- Kaplan-Meier
+- Cox Proportional Hazards
+
+**Data Analysis**
+
+- pandas
+- NumPy
+
+**Visualization**
+
+- Plotly
+- Streamlit
+
+---
+
+# Supporting Documents
+
+This repository also includes the original business artefacts developed during the competition.
+
+| Document | Description |
+|-----------|-------------|
+| Delhivery Case Statement | Original competition problem statement |
+| Strategy Solution | Complete consulting solution including market analysis, customer segmentation, execution roadmap and GTM strategy |
+| Financial Model | Excel model validating unit economics, pricing assumptions and business scalability |
+
+Together, these documents provide the complete journey from business problem identification to analytical implementation.
+
+---
+
+# Running the Project
+
+Clone the repository
+
+```bash
+git clone https://github.com/kaunnikhil/c2c_logistics_delhivery.git
 cd c2c_logistics_delhivery
+```
 
+Install dependencies
 
-2. Install dependencies:
-
+```bash
 pip install -r requirements.txt
+```
 
+Generate synthetic datasets
 
-3. Generate Data & Train Models:
-
+```bash
 python src/data_generator.py
 python src/operations_data_generator.py
+```
+
+Train models
+
+```bash
 python src/survival_model.py
 python src/xgboost_model.py
+```
 
+Launch the dashboard
 
-4. Launch the Command Center:
-
+```bash
 streamlit run src/dashboard.py
+```
 
+---
 
-Built with excessive amounts of coffee and a deep respect for supply chain dynamics.
+# Future Work
+
+- Agentic AI Operations Copilot
+- Real-time streaming data pipeline
+- Digital twin of logistics network
+- Network optimization using Operations Research
+- Scenario planning under stochastic demand
+- Reinforcement Learning for routing decisions
+
+---
+
+# Disclaimer
+
+This project was developed for educational and research purposes as an extension of a national case competition. The operational datasets used in the machine learning pipeline are synthetic and were generated to simulate realistic logistics scenarios. They do not represent proprietary operational data from Delhivery.
